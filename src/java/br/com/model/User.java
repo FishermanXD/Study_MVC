@@ -48,4 +48,16 @@ public class User {
         this.fone = fone;
     }
 
+    public User() {
+    }
+
+    public User(String nome, String email, String senha, long fone) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.fone = fone;
+    }
+    
+    
+
 }

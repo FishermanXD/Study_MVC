@@ -5,8 +5,13 @@
  */
 package br.com.controle;
 
+import br.com.DAO.UserDAO;
+import br.com.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,14 +33,10 @@ public class controlRegister extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            request.getParameter("txt");
-       
-        }
+            throws ServletException, IOException, SQLException {
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,7 +65,19 @@ public class controlRegister extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String CompleteName = request.getParameter("txtFirstName") + " " + request.getParameter("txtLastName");
+
+        User usuario = new User(CompleteName, request.getParameter("txtEmail"), request.getParameter("txtSenha"), Long.parseLong(request.getParameter("txtEmpPhone")));
+
+        UserDAO userDao = new UserDAO();
+
+        try {
+            userDao.adiciona(usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(controlRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**

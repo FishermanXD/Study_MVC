@@ -13,14 +13,14 @@ import java.sql.DriverManager;
  * @author fisherman
  */
 public class ConectionFactory {
-    
-        public static Connection getConnection() {
-        try{            
-             Class.forName("org.postgresql.Driver");
-                                                   //local do banco                              //usuario  //senha
-             return   DriverManager.getConnection("jdbc:postgresql://localhost:5433/projeto", "postgres", "postgres"); //retorna um Connection
-            
-        }catch(Exception e){
+
+    public static Connection getConnection() {
+        try {
+            Class.forName("org.postgresql.Driver");
+            //local do banco                              //usuario  //senha
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/CRUDatabase", "postgres", "123"); //retorna um Connection
+
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
